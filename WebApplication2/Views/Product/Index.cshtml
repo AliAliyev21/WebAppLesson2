@@ -1,0 +1,38 @@
+﻿@model WebApplication2.Models.ProductListViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/Index.css" />
+</head>
+<body>
+    <div class="d-flex justify-content-between align-items-center my-4">
+        <h2>Products</h2>
+        <a href="@Url.Action("Add", "Product")" class="btn btn-primary">Add New Product</a>
+    </div>
+
+    <div class="row">
+        @foreach (var item in Model.Products)
+        {
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <img src="@item.Image" class="card-img-top" alt="@item.Name" />
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Description</p>
+                        <p class="card-text"><strong>Price:</strong> @item.Price</p>
+                        <p class="card-text"><strong>Discount:</strong> @item.Discount</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="@Url.Action("Update", "Product", new { id = item.Id })" class="btn btn-warning">Update</a>
+                            <form asp-action="Delete" method="post" class="d-inline">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>
